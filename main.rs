@@ -89,6 +89,7 @@ fn scan(
 }
 
 fn send(
+	index: i32,
     ack_addr: &[(Ipv4Addr, String)],
     _interface: &NetworkInterface,
     ipv4_network: Ipv4Network,
@@ -97,20 +98,13 @@ fn send(
     packets_per_ip: usize,
     delay_ms: u64,
 ) {
-    let mut input = String::new();
-    io::stdin()
-		.read_line(&mut input)
-		.expect("Failed to read line");
-		
-	let index: i32 = input.trim().parse().expect("Please type a number!");
-	
     let usize_index = index as usize;
     let mac_addr = ack_addr[usize_index].1.clone();
     let ip_addr = ack_addr[usize_index].0;
 
     let tx_clone = Arc::clone(&tx);
 	
-    println!("Sending data to: {}", ip_addr);
+    println!("Sending data to: {}, wait {} seconds", ip_addr, (packets_per_ip as u64) * delay_ms / 100);
     thread::spawn(move || {
         for _seq in 1..=packets_per_ip {
             let mut eth_buffer = [0u8; 42];
@@ -260,12 +254,21 @@ fn main() {
 						target_ips.clone(),
 						source_mac,
 					);
+					thread::sleep(Duration::from_millis(100));
 				}
 			2 => {
 					if ack_ips.is_empty() {
 						println!("You can't choose ip before scan");
 					} else {
+							println!("Please input number of ip that will be pushed: ");
+						    let mut input = String::new();
+							io::stdin()
+								.read_line(&mut input)
+								.expect("Failed to read line");
+								
+							let index: i32 = -1 + input.trim().parse::<i32>().expect("Please type a number!");
 						send(
+							index,
 							&ack_ips,
 							&interface,
 							ipv4_network,
@@ -275,6 +278,7 @@ fn main() {
 							delay_ms,
 						);
 					}
+					thread::sleep(Duration::from_millis(100));
 				}
 			3 => {
 					println!("Current packet amount: {}", packets_per_ip);
