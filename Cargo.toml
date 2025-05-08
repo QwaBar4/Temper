@@ -1,0 +1,18 @@
+[package]
+name = "temper"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "temper"
+path = "src/main.rs"
+
+[dependencies]
+pnet = { version = "0.31.0", features = ["std"] }
+clap = "4.0"
+mac_address = "1.1"
+ipnetwork = "0.20.0"
+pnet_datalink = "0.34.0"
+pnet_packet = "0.34.0"
+pnet_base = "0.34.0"
+termion = "2.0"
