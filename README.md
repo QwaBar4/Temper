@@ -12,9 +12,9 @@ Temper is an ARP scanner and sender written in Rust. It allows you to scan IP ad
 ## Installation
 
 To get started with Temper, follow these steps:
-
+https://github.com/QwaBar4/Temper.git
 ```bash
-git clone https://github.com/yourusername/Temper.git
+git clone https://github.com/QwaBar4/Temper.git
 cd Temper
 cargo build
 ```
