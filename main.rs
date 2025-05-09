@@ -184,7 +184,7 @@ fn main() {
   ┏┳┓           
    ┃ ┏┓┏┳┓┏┓┏┓┏┓
    ┻ ┗ ┛┗┗┣┛┗ ┛ 
-           ┛       
+            ┛       
 ";
 	center_ascii(name);
 	println!("{}Created by: QwaBar4{}", color::Fg(color::Green), color::Fg(color::Reset));
